@@ -44,7 +44,8 @@ module.exports = React.createClass({
         onDropdownClose: React.PropTypes.func,
         optionTemplate: React.PropTypes.func.isRequired,
         getMessageForOption: React.PropTypes.func,
-        getMessageForIncomingOptions: React.PropTypes.func
+        getMessageForIncomingOptions: React.PropTypes.func,
+        onEnter: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -72,7 +73,8 @@ module.exports = React.createClass({
                 return (
                     number + ' suggestions are available. Use up and down arrows to select.'
                 );
-            }
+            },
+            onEnter: noop
         };
      },
 
@@ -411,6 +413,7 @@ module.exports = React.createClass({
             _this.focus();
             _this.hideHint();
             _this.hideDropdown();
+            props.onEnter(event, props.options[_this.state.selectedIndex], _this.state.selectedIndex);
             break;
         case 'Escape':
             _this.hideHint();
